@@ -1,7 +1,9 @@
 #!/bin/bash
 clear
 echo "LE RECUERDO QUE ESCRIBIENDO ASIST USTED PUEDE VER LA LISTA DE COMANDOS" | iconv -f utf-8 -t iso-8859-1|festival --tts
-
+echo "ASIST -> LISTA DE COMANDOS"
+read -p "PRESIONE ENTER PARA COPNTINUAR "
+clear
 O="0"
 N="1"
 CONT="1"
@@ -9,12 +11,12 @@ CONT="1"
 until [ "$O" == "BYE" ] || [ "$O" == "APAGATE" ] || [ "$O" == "ADIOS ASIST" ] || [ "$O" == "CIERRATE" ] || [ "$O" == "SALIR" ];
 
 do
-
+	
     case $O in
  
         "ASIST")
 			
-			clear
+			
 			echo "MOSTRANDO INFORMACIÓN DE LOS COMANDOS" | iconv -f utf-8 -t iso-8859-1|festival --tts
 			echo "+COMANDOS DE AYUDA"
 			echo ""
@@ -156,7 +158,7 @@ do
                 then
                 case $(($RANDOM%6)) in
 					0) 
-						echo "RECUERDA QUE COMANDOS SIMEPRE CON MAYÚSCULAS" | iconv -f utf-8 -t iso-8859-1|festival --tts
+						echo "COMANDO INVÁLIDO" | iconv -f utf-8 -t iso-8859-1|festival --tts
 						;;
 					1)
 						echo "SINTAXIS ERROR" | iconv -f utf-8 -t iso-8859-1|festival --tts
@@ -180,6 +182,7 @@ do
 
     esac
 
+    echo "USUSARIO EN CARPETA $PWD"
     read O
 
 done
