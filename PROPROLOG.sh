@@ -16,7 +16,7 @@ echo "La PREBESHELL PRO ASIST se diseñó a prueba de robos, por lo que necesito
 echo "Tu usuario en esta seción es $(whoami) "
 echo "Verificando la contraseña de $(whoami) "
 sudo -v
-sudo echo "¿En serio usas la misma contraseña para todo?, en fin " | iconv -f utf-8 -t iso-8859-1|festival --tts
+sudo echo "¿ASI QUE usas la misma contraseña para todo?, en fin " | iconv -f utf-8 -t iso-8859-1|festival --tts
 clear
 echo "Ahora debes ingresar a la plataforma con cualquier usuario y contraseña de sesión, no importa que no sea esta sesión"
 echo "Siempre y cuando exista en el sistema opertativo actual"
@@ -49,16 +49,17 @@ do
     		echo "$VAR"
     		su - $USUARIO -c whoami >> sombra.txt
     		
-    		if [ "$(grep -c $USUARIO sombra.txt)" != "1" ]
-    		then
-    			if [ "$VAR" = "0" ]
+    		if [ "$(grep -c $USUARIO sombra.txt)" != "1" ] #Verifica si hay coincidecia en sombras
+    		then                                           #Entran cuando no hay nada escrito en sombra o hay más de dos
+    			if [ "$VAR" = "0" ]                        #Si entra aquí es porque ya no hay nada escrito
     				then
-    				echo "" 
+    				echo "Entro a 0" 
     			else
-    				sed '$d' sombra.txt
-    				sed '$d' sombra.txt
+    				cp sombra.txt sombra.txt.tmp
+    				sed '$d' sombra.txt.tmp > sombra.txt
+    				rm -f sombra.txt.tmp
     				USUARIOR="$USUARIO" 
-    				fi 
+    			fi 
     		else
     			if [ "$VAR" = "1" ]
     			 then
@@ -74,7 +75,6 @@ do
     		cd "$DIRECI/.PREBESHELL"
     		touch sombra.txt
     		chmod 755 sombra.txt
-    		echo "$PWD"
     		clear
     		read -p "USUARIO: " USUARIO
     		VAR="$(grep -c $USUARIO sombra.txt)"
@@ -85,8 +85,10 @@ do
     				then
     				echo ""
     				else
-    				sed '$d' sombra.txt
-    				USUARIOR="$USUARIO"
+    				cp sombra.txt sombra.txt.tmp
+    				sed '$d' sombra.txt.tmp > sombra.txt
+    				rm -f sombra.txt.tmp
+    				USUARIOR="$USUARIO" 
     				fi 
     		else
     			if [ "$VAR" = "1"]
@@ -107,9 +109,10 @@ do
     else
     	echo "AL PARECER TE EQUIVOCASTE EN ALGO" | iconv -f utf-8 -t iso-8859-1|festival --tts
     	echo "VUELVE A INTENTAR"
-    	read -p "PRESIONA ENTER PARA CONTINUAR"
 
     fi
-
+echo ""
+echo "Si no te quieres ir solo da un enter" | iconv -f utf-8 -t iso-8859-1|festival --tts
+read -p "SI QUIERE CERRAR TECLEA < SALIR > A CONTINUACIÓN: " O
 done
 
